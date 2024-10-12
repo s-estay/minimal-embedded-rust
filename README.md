@@ -1,3 +1,6 @@
+## What is this?
+Baby steps towards running Rust on a Feather RP2040 development board. This project describes how to setup a minimal embedded project. If you want to blink an LED, well, this repo is not that.
+
 ## Standard Rust tooling
 - [rustup](https://www.rust-lang.org/tools/install) : Rust toolchain manager
 - `rustup update`
@@ -41,7 +44,7 @@
 - `bat ./src/main.rs`
 ```rust
 fn main() {
-	println!("Hello, world!");
+  println!("Hello, world!");
 }
 ```
 
@@ -59,7 +62,7 @@ use cortex_m_rt::entry;
 use panic_halt as _;
 #[entry]
 fn main() -> ! {
-	loop{}
+  loop{}
 }
 ```
 
@@ -104,7 +107,7 @@ LLVM version: 18.1.7
 target = "thumbv6m-none-eabi"
 ```
 
-## Add memory layout of the target device
+## Add target memory layout
 - The Feather RP2040 has 8 MB SPI FLASH
 - 1024 * 8 = 8192
 - The Feather RP2040 has 264 KB RAM
@@ -128,9 +131,10 @@ SECTIONS {
 
 ## Sanity check
 - Let's verify if the source code can produce an ARM binary executable
+- Install `cargo-binutils` if you haven't already
 - `cargo readobj --target thumbv6m-none-eabi --bin minimal-embedded-rust -- --file-headers`
 - This will implicitly run `cargo build`
-- Here are looking at Machine = ARM
+- Here we are looking at Machine = ARM (OK)
 ```terminal
 ELF Header:
   Magic:   7f 45 4c 46 01 01 01 00 00 00 00 00 00 00 00 00
@@ -155,7 +159,7 @@ ELF Header:
 ```
 
 ## Configure linker
-- In the sanity check above we got that the entry point address is 0x0, which is wrong
+- In the sanity check above we got that the **entry point address** is 0x0 (NOK)
 - If we try to flash the target with `cargo run` we will get the following error : *Error: "entry point is not in mapped part of file"*
 - To fix this issue we need to configure the linker
 - Linker argument `-Tlink.x` tells the linker to use `link.x` as the linker script. This is usually provided by the `cortex-m-rt` crate, and by default the version in that crate will include a file called `memory.x` which describes the particular memory layout for your specific chip
@@ -163,7 +167,7 @@ ELF Header:
 ```toml
 [target.thumbv6m-none-eabi]
 rustflags = [
-    "-C", "link-arg=-Tlink.x",
+  "-C", "link-arg=-Tlink.x",
 ]
 ```
 - `cargo readobj --target thumbv6m-none-eabi --bin test-feather -- --file-headers`
@@ -201,8 +205,6 @@ runner = "elf2uf2-rs -d"
 ## Flash target
 - Inside the RP2040 is a 'permanent ROM' USB UF2 bootloader
 - What that means is when you want to program new firmware, you can hold down the BOOTSEL button while plugging it into USB and it will appear as a USB disk drive you can drag the firmware onto (or run `cargo run`)
-
----
 
 ## Resources
 - [The Embedded Rust Book](https://docs.rust-embedded.org/book/intro/index.html)

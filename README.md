@@ -154,7 +154,7 @@ ELF Header:
   Section header string table index: 12
 ```
 
-## Incorrect entry point address
+## Configure linker
 - In the sanity check above we got that the entry point address is 0x0, which is wrong
 - If we try to flash the target with `cargo run` we will get the following error : *Error: "entry point is not in mapped part of file"*
 - To fix this issue we need to configure the linker

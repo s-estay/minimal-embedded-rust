@@ -206,7 +206,12 @@ runner = "elf2uf2-rs -d"
 - Inside the RP2040 is a 'permanent ROM' USB UF2 bootloader
 - What that means is when you want to program new firmware, you can hold down the BOOTSEL button while plugging it into USB and it will appear as a USB disk drive you can drag the firmware onto (or run `cargo run`)
 
-## Resources
+## Template
+- This repo is a good (but very basic) starting point for a new embedded project. That's why I've made it to a template that it can used with [Cargo Generate](https://cargo-generate.github.io/cargo-generate/index.html)
+- Install Cargo Generate : `cargo install cargo-generate`
+- Create new repo from this template : `cargo generate --git git@github.com:s-estay/minimal-embedded-rust.git --name <your-repo-name>`
+
+## References
 - [The Embedded Rust Book](https://docs.rust-embedded.org/book/intro/index.html)
 - [Rust Discovery Book](https://docs.rust-embedded.org/discovery/microbit/index.html)
 - [cortex-m](https://crates.io/crates/cortex-m)
@@ -217,6 +222,8 @@ runner = "elf2uf2-rs -d"
 - [Sanity check](https://docs.rust-embedded.org/discovery/microbit/05-led-roulette/build-it.html)
 - [Add memory layout](https://docs.rs/cortex-m-rt/0.7.3/cortex_m_rt/)
 - [Adafruit Feather RP2040](https://www.adafruit.com/product/4884)
+- [Cargo Generate documentation](https://cargo-generate.github.io/cargo-generate/index.html)
+- [Scaffold Rust projects with Cargo Generate](https://youtu.be/orfGjnOLtpg)
 
 ## Useful repos
 - [rp-hal](https://github.com/rp-rs/rp-hal)

@@ -224,6 +224,7 @@ runner = "elf2uf2-rs -d"
 - [Adafruit Feather RP2040](https://www.adafruit.com/product/4884)
 - [Cargo Generate documentation](https://cargo-generate.github.io/cargo-generate/index.html)
 - [Scaffold Rust projects with Cargo Generate](https://youtu.be/orfGjnOLtpg)
+- [Liquid](https://shopify.github.io/liquid/)
 
 ## Useful repos
 - [rp-hal](https://github.com/rp-rs/rp-hal)
